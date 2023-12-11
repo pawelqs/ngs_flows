@@ -44,7 +44,7 @@ workflow RUN_BAM_READCOUNT {
     fasta
 
     main:
-    BAM_READCOUNT ( bam_bai, sites, fasta )
+    BAM_READCOUNT ( bam_bai, file(sites, checkIfExists: true), fasta )
 
     emit:
     readcounts = BAM_READCOUNT.out.readcounts   // channel: [ val(meta), [ reads ] ]
