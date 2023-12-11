@@ -53,7 +53,7 @@ workflow RUN_BAM_READCOUNT {
 
 
 
-workflow {
+workflow NGSFLOWS {
     ch = read_manifest(params.input)
     ch_versions = Channel.empty()
 
