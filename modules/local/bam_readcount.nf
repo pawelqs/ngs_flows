@@ -28,7 +28,7 @@ process BAM_READCOUNT {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        bam-readcount: \$(bam-readcount -v)
+        bam-readcount: \$(bam-readcount -v | sed 's/bam-readcount version: //g')
     END_VERSIONS
     """
 }
