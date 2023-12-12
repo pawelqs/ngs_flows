@@ -68,6 +68,12 @@ workflow {
     FASTQC ( ch_fastqc )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
+    // MODULE: bam-readcount
+    RUN_BAM_READCOUNT(ch, params.sites, params.fasta)
+    ch_versions = ch_versions.mix(RUN_BAM_READCOUNT.out.versions)
+
+    ch_versions.view()
+    // MODULE: dump suftware versions
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
@@ -84,8 +90,4 @@ workflow {
         ch_multiqc_logo.toList()
     )
     multiqc_report = MULTIQC.out.report.toList()
-
-
-    // MODULE: bam-readcount
-    RUN_BAM_READCOUNT(ch, params.sites, params.fasta)
 }
